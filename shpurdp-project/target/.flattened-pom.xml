@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License. See accompanying LICENSE file.
+-->
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.apache.shpurdp</groupId>
+  <artifactId>shpurdp-project</artifactId>
+  <version>3.0.0.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <name>Apache Shpurdp Project POM</name>
+  <description>Apache Shpurdp Project POM</description>
+  <url>https://shpurdp.apache.org/shpurdp-project/</url>
+  <organization>
+    <name>Apache Software Foundation</name>
+    <url>https://www.apache.org</url>
+  </organization>
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <mailingLists>
+    <mailingList>
+      <name>Dev</name>
+      <subscribe>dev-subscribe@shpurdp.apache.org</subscribe>
+      <unsubscribe>dev-unsubscribe@shpurdp.apache.org</unsubscribe>
+      <post>dev@shpurdp.apache.org</post>
+      <archive>http://mail-archives.apache.org/mod_mbox/shpurdp-dev/</archive>
+    </mailingList>
+    <mailingList>
+      <name>Users</name>
+      <subscribe>users-subscribe@shpurdp.apache.org</subscribe>
+      <unsubscribe>users-unsubscribe@shpurdp.apache.org</unsubscribe>
+      <post>users@shpurdp.apache.org</post>
+      <archive>http://mail-archives.apache.org/mod_mbox/shpurdp-users</archive>
+    </mailingList>
+    <mailingList>
+      <name>Commits</name>
+      <subscribe>commits-subscribe@shpurdp.apache.org</subscribe>
+      <unsubscribe>commits-unsubscribe@shpurdp.apache.org</unsubscribe>
+      <post>commits@shpurdp.apache.org</post>
+      <archive>http://mail-archives.apache.org/mod_mbox/shpurdp-commits</archive>
+    </mailingList>
+    <mailingList>
+      <name>Issues</name>
+      <subscribe>issues-subscribe@shpurdp.apache.org</subscribe>
+      <unsubscribe>issues-unsubscribe@shpurdp.apache.org</unsubscribe>
+      <post>issues@shpurdp.apache.org</post>
+      <archive>http://mail-archives.apache.org/mod_mbox/shpurdp-issues</archive>
+    </mailingList>
+  </mailingLists>
+  <scm>
+    <connection>scm:git:https://gitbox.apache.org/repos/asf/shpurdp.git/shpurdp-project</connection>
+    <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/maven-apache-parent.git/shpurdp/shpurdp-project</developerConnection>
+    <url>https://github.com/apache/shpurdp/shpurdp-project</url>
+  </scm>
+  <issueManagement>
+    <system>jira</system>
+    <url>https://issues.apache.org/jira/browse/SHPURDP</url>
+  </issueManagement>
+  <distributionManagement>
+    <repository>
+      <id>apache.releases.https</id>
+      <name>Apache Release Distribution Repository</name>
+      <url>https://repository.apache.org/service/local/staging/deploy/maven2</url>
+    </repository>
+    <snapshotRepository>
+      <id>apache.snapshots.https</id>
+      <name>Apache Development Snapshot Repository</name>
+      <url>https://repository.apache.org/content/repositories/snapshots</url>
+    </snapshotRepository>
+  </distributionManagement>
+  <repositories>
+    <repository>
+      <id>oss.sonatype.org</id>
+      <name>OSS Sonatype Staging</name>
+      <url>https://oss.sonatype.org/content/groups/staging</url>
+    </repository>
+    <repository>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <id>spring-milestones</id>
+      <name>Spring Milestones</name>
+      <url>https://repo.spring.io/milestone</url>
+    </repository>
+    <repository>
+      <id>ASF Staging</id>
+      <url>https://repository.apache.org/content/groups/staging/</url>
+    </repository>
+    <repository>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <id>ASF Snapshots</id>
+      <url>https://repository.apache.org/content/repositories/snapshots/</url>
+    </repository>
+    <repository>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <id>apache.snapshots</id>
+      <name>Apache Snapshot Repository</name>
+      <url>https://repository.apache.org/snapshots</url>
+    </repository>
+  </repositories>
+</project>

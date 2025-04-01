@@ -1,0 +1,76 @@
+~~ Licensed to the Apache Software Foundation (ASF) under one or more
+~~ contributor license agreements.  See the NOTICE file distributed with
+~~ this work for additional information regarding copyright ownership.
+~~ The ASF licenses this file to You under the Apache License, Version 2.0
+~~ (the "License"); you may not use this file except in compliance with
+~~ the License.  You may obtain a copy of the License at
+~~
+~~     http://www.apache.org/licenses/LICENSE-2.0
+~~
+~~ Unless required by applicable law or agreed to in writing, software
+~~ distributed under the License is distributed on an "AS IS" BASIS,
+~~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+~~ See the License for the specific language governing permissions and
+~~ limitations under the License.
+~~
+
+What's New with Shpurdp?
+
+  * The latest release of Shpurdp is Shpurdp 2.7.8.
+
+  * Shpurdp 2.7.0 added the following features:
+
+    * The Shpurdp UI, Shpurdp Server, and Shpurdp Agent have been significantly reworked to more efficiently handle large cluster management
+
+    * In order to more efficiently manage large clusters, the AMS schema has been updated, and metric aggregation has been improved.
+
+    * Updated default configurations, and configuration recommendations to ensure AMS is tuned well out of the box.
+
+    * Added support for easily adding and managing new HDFS namespaces.
+
+    * Added support for managing ViewFS mount table configuration.
+
+    * Added FreeIPA as a supported KDC implementation.
+
+    * Added support for a new Isilon Management Pack that can be used to easily install HDP on an existing Isilon OneFS implementation.
+
+    * Shpurdp Infra Solr now uses Solr 7.
+
+    * Amazon Linux is now a supported deployment platform.
+
+    * Commonly customized properties are now confgurable all in one place during the installation, making it much easier to quickly configure your installation.
+
+    * Added the ability for teams to quickly see who initiated operations like Add Service, Add Host, Enable HA, etc.
+
+    * Added the ability for teams to quickly see who performed operations like restarting services, etc.
+
+    * Made it easier to find hosts when adding services to a large cluster with many components deployed to it.
+
+    * Added the ability to bulk add and delete components to multiple hosts.
+
+    * Added the ability to delete hosts in bulk.
+
+    * Created a new API portal in the Shpurdp Server to quickly understand and try out the Shpurdp API. Navigate to http://shpurdp.server:8080/api-docs to view the portal.
+
+    * Made it easer to setup SSO for Shpurdp, Atlas, and Ranger.
+
+Getting Shpurdp Source
+
+  See {{{https://cwiki.apache.org/confluence/display/SHPURDP/Shpurdp+Development} Shpurdp Development guide}} on how to check out the source and build it.
+
+JIRA
+
+  You can follow all the work going on by watching the Shpurdp JIRA project. You can see the
+  JIRA details for Shpurdp here:
+
+  {{{https://issues.apache.org/jira/issues/?jql=project%20%3D%20SHPURDP} https://issues.apache.org/jira/issues/?jql=project%20%3D%20SHPURDP}}
+
+User Guide
+
+  Take a look at {{{https://cwiki.apache.org/confluence/display/SHPURDP/Installation+Guide+for+Shpurdp+2.7.8} how to install a Hadoop cluster using Shpurdp 2.7.8}}.
+
+Stay Tuned
+
+  {{{http://shpurdp.apache.org/mail-lists.html} Subscribe to the Shpurdp mailing lists}} and check back here often to learn about our
+  upcoming releases.
+

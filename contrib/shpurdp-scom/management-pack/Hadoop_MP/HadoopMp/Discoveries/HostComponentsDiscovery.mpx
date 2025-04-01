@@ -1,0 +1,91 @@
+﻿<!--## Licensed to the Apache Software Foundation (ASF) under one
+## or more contributor license agreements.  See the NOTICE file
+## distributed with this work for additional information
+## regarding copyright ownership.  The ASF licenses this file
+## to you under the Apache License, Version 2.0 (the
+## "License"); you may not use this file except in compliance
+## with the License.  You may obtain a copy of the License at
+##
+##     http://www.apache.org/licenses/LICENSE-2.0
+##
+## Unless required by applicable law or agreed to in writing,
+## software distributed under the License is distributed on an
+## "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+## KIND, either express or implied.  See the License for the
+## specific language governing permissions and limitations
+## under the License.-->
+<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Monitoring>
+    <Discoveries>
+      <Discovery ID="Shpurdp.SCOM.Discovery.HostComponents"
+                 Target="Shpurdp.SCOM.Host"
+                 Enabled="true" ConfirmDelivery="false" Remotable="true" Priority="Normal">
+        <Category>Discovery</Category>
+        <DiscoveryTypes>
+          <DiscoveryClass TypeID="Shpurdp.SCOM.HostComponent">
+            <Property TypeID="Shpurdp.SCOM.ShpurdpManagedEntity" PropertyID="ShpurdpUri" />
+            <Property TypeID="Shpurdp.SCOM.HostComponent" PropertyID="ComponentName" />
+          </DiscoveryClass>
+          <DiscoveryClass TypeID="Shpurdp.SCOM.HostComponent.NameNode" />
+          <DiscoveryClass TypeID="Shpurdp.SCOM.HostComponent.SecondaryNameNode" />
+          <DiscoveryClass TypeID="Shpurdp.SCOM.HostComponent.JobTracker" />
+          <DiscoveryClass TypeID="Shpurdp.SCOM.HostComponent.DataNode" />
+          <DiscoveryClass TypeID="Shpurdp.SCOM.HostComponent.TaskTracker" />
+          <DiscoveryClass TypeID="Shpurdp.SCOM.HostComponent.HiveServer" />
+          <DiscoveryClass TypeID="Shpurdp.SCOM.HostComponent.HiveMetastore" />
+          <DiscoveryClass TypeID="Shpurdp.SCOM.HostComponent.HiveClient" />
+          <DiscoveryClass TypeID="Shpurdp.SCOM.HostComponent.TempletonServer" />
+          <DiscoveryClass TypeID="Shpurdp.SCOM.HostComponent.OozieServer" />
+          <DiscoveryClass TypeID="Shpurdp.SCOM.HostComponent.Pig" />
+          <DiscoveryClass TypeID="Shpurdp.SCOM.HostComponent.Sqoop" />
+          <DiscoveryClass TypeID="Shpurdp.SCOM.HostComponent.HistoryServer" />
+          <DiscoveryClass TypeID="Shpurdp.SCOM.HostComponent.MapReduce2Client" />
+          <DiscoveryClass TypeID="Shpurdp.SCOM.HostComponent.NodeManager" />
+          <DiscoveryClass TypeID="Shpurdp.SCOM.HostComponent.ResourceManager" />
+          <DiscoveryClass TypeID="Shpurdp.SCOM.HostComponent.YarnClient" />
+          <DiscoveryRelationship TypeID="Shpurdp.SCOM.HostHostsHostComponent" />
+          <DiscoveryRelationship TypeID="Shpurdp.SCOM.ClusterServiceContainsHostComponent" />
+          <DiscoveryRelationship TypeID="Shpurdp.SCOM.HdfsServiceContainsNameNodeComponent" />
+          <DiscoveryRelationship TypeID="Shpurdp.SCOM.MapReduceServiceContainsJobTrackerComponent" />
+          <DiscoveryRelationship TypeID="Shpurdp.SCOM.HiveServiceContainsHiveServerComponent" />
+          <DiscoveryRelationship TypeID="Shpurdp.SCOM.HiveServiceContainsHiveMetastoreComponent" />
+          <DiscoveryRelationship TypeID="Shpurdp.SCOM.TempletonServiceContainsTempletonServerComponent" />
+          <DiscoveryRelationship TypeID="Shpurdp.SCOM.OozieServiceContainsOozieServerComponent" />
+          <DiscoveryRelationship TypeID="Shpurdp.SCOM.MapReduce2ServiceContainsHistoryServerComponent" />
+          <DiscoveryRelationship TypeID="Shpurdp.SCOM.YarnServiceContainsNodeManagerComponent" />
+          <DiscoveryRelationship TypeID="Shpurdp.SCOM.YarnServiceContainsResourceManagerComponent" />
+        </DiscoveryTypes>
+        <DataSource ID="DS" TypeID="Shpurdp.SCOM.Module.HostComponentsDiscoveryDataSource">
+          <IntervalSeconds>14400</IntervalSeconds>
+          <SyncTime />
+          <TimeoutSeconds>300</TimeoutSeconds>
+          <TemplateName>$Target/Host/Property[Type="Shpurdp.SCOM.Host.Private"]/TemplateName$</TemplateName>
+          <ClusterName>$Target/Host/Property[Type="Shpurdp.SCOM.Host.Private"]/ClusterName$</ClusterName>
+          <HostName>$Target/Host/Property[Type="Shpurdp.SCOM.Host.Private"]/HostName$</HostName>
+          <HostIpAddress>$Target/Property[Type="Shpurdp.SCOM.Host"]/IpAddress$</HostIpAddress>
+          <HostShpurdpUri>$Target/Host/Property[Type="Shpurdp.SCOM.ShpurdpManagedEntity"]/ShpurdpUri$</HostShpurdpUri>
+        </DataSource>
+      </Discovery>
+    </Discoveries>
+  </Monitoring>
+  <LanguagePacks>
+    <LanguagePack ID="ENU" IsDefault="true">
+      <DisplayStrings>
+        <DisplayString ElementID="Shpurdp.SCOM.Discovery.HostComponents">
+          <Name>Hadoop Host Components Discovery</Name>
+          <Description>This workflow discovers all types of Hadoop Host Components running on specific host.</Description>
+        </DisplayString>
+      </DisplayStrings>
+      <KnowledgeArticles>
+        <KnowledgeArticle ElementID="Shpurdp.SCOM.Discovery.HostComponents" Visible="true">
+          <MamlContent>
+            <section xmlns="http://schemas.microsoft.com/maml/2004/10">
+              <title>Summary</title>
+              <para>This workflow discovers all types of Hadoop Host Components running on specific host.</para>
+            </section>
+          </MamlContent>
+        </KnowledgeArticle>
+      </KnowledgeArticles>
+    </LanguagePack>
+  </LanguagePacks>
+</ManagementPackFragment>

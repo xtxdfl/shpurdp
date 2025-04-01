@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="maven-antrun-" default="main"  >
+<target name="main">
+  <apply executable="/root/shpurdp/shpurdp-web/gzip-content.sh">
+    <arg value="-f"/>
+    <arg value="-c"/>
+    <fileset dir="/root/shpurdp/shpurdp-web/public/img/">
+      <patternset>
+        <include name="**/*.png"/>
+      </patternset>
+    </fileset>
+  </apply>
+</target>
+</project>

@@ -1,0 +1,7 @@
+{
+  "general_deps" : {
+    "_comment" : "dependencies for SHPURDP INFRA_SOLR",
+    "INFRA_SOLR-START" : ["ZOOKEEPER_SERVER-START"],
+    "SHPURDP_INFRA_SOLR_SERVICE_CHECK-SERVICE_CHECK": ["INFRA_SOLR-START"]
+  }
+}

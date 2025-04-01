@@ -1,0 +1,240 @@
+﻿<!--## Licensed to the Apache Software Foundation (ASF) under one
+## or more contributor license agreements.  See the NOTICE file
+## distributed with this work for additional information
+## regarding copyright ownership.  The ASF licenses this file
+## to you under the Apache License, Version 2.0 (the
+## "License"); you may not use this file except in compliance
+## with the License.  You may obtain a copy of the License at
+##
+##     http://www.apache.org/licenses/LICENSE-2.0
+##
+## Unless required by applicable law or agreed to in writing,
+## software distributed under the License is distributed on an
+## "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+## KIND, either express or implied.  See the License for the
+## specific language governing permissions and limitations
+## under the License.-->
+<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <TypeDefinitions>
+    <EntityTypes>
+      <ClassTypes>
+        <ClassType ID="Shpurdp.SCOM.HostComponent" Accessibility="Public" Base="Shpurdp.SCOM.ShpurdpManagedEntity" Hosted="true" Abstract="true" Singleton="false">
+          <Property ID="ClusterName" Type="string" Comment="Required to show parent cluster name on State Widget" />
+          <Property ID="ComponentName" Type="string" Key="true" />
+          <Property ID="ParentHostName" Type="string" Key="false" />
+        </ClassType>
+
+        <ClassType ID="Shpurdp.SCOM.ActiveHostComponent" Accessibility="Public" Base="Shpurdp.SCOM.HostComponent" Hosted="true" Abstract="true" Singleton="false"
+                   Comment="Represents daemon/service that is actually running on the host" />
+        
+        <ClassType ID="Shpurdp.SCOM.BasicPerformanceHostComponent" Accessibility="Public" Base="Shpurdp.SCOM.ActiveHostComponent" Hosted="true" Abstract="true" Singleton="false"
+                   Comment="Basic set of performance collection rules applies" />
+        
+        <ClassType ID="Shpurdp.SCOM.HeadNodeComponent" Accessibility="Public" Base="Shpurdp.SCOM.BasicPerformanceHostComponent" Hosted="true" Abstract="true" Singleton="false"
+                   Comment="Extended set of performance collection rules applies" />
+
+        <ClassType ID="Shpurdp.SCOM.HostComponent.NameNode" Accessibility="Public" Base="Shpurdp.SCOM.HeadNodeComponent" Hosted="true" Abstract="false" Singleton="false" />
+        <ClassType ID="Shpurdp.SCOM.HostComponent.SecondaryNameNode" Accessibility="Public" Base="Shpurdp.SCOM.ActiveHostComponent" Hosted="true" Abstract="false" Singleton="false" />
+        <ClassType ID="Shpurdp.SCOM.HostComponent.JobTracker" Accessibility="Public" Base="Shpurdp.SCOM.HeadNodeComponent" Hosted="true" Abstract="false" Singleton="false" />
+        <ClassType ID="Shpurdp.SCOM.HostComponent.DataNode" Accessibility="Public" Base="Shpurdp.SCOM.BasicPerformanceHostComponent" Hosted="true" Abstract="false" Singleton="false" />
+        <ClassType ID="Shpurdp.SCOM.HostComponent.TaskTracker" Accessibility="Public" Base="Shpurdp.SCOM.BasicPerformanceHostComponent" Hosted="true" Abstract="false" Singleton="false" />
+        <ClassType ID="Shpurdp.SCOM.HostComponent.HiveServer" Accessibility="Public" Base="Shpurdp.SCOM.ActiveHostComponent" Hosted="true" Abstract="false" Singleton="false" />
+        <ClassType ID="Shpurdp.SCOM.HostComponent.HiveMetastore" Accessibility="Public" Base="Shpurdp.SCOM.ActiveHostComponent" Hosted="true" Abstract="false" Singleton="false" />
+        <ClassType ID="Shpurdp.SCOM.HostComponent.HiveClient" Accessibility="Public" Base="Shpurdp.SCOM.HostComponent" Hosted="true" Abstract="false" Singleton="false" />
+        <ClassType ID="Shpurdp.SCOM.HostComponent.TempletonServer" Accessibility="Public" Base="Shpurdp.SCOM.ActiveHostComponent" Hosted="true" Abstract="false" Singleton="false" />
+        <ClassType ID="Shpurdp.SCOM.HostComponent.OozieServer" Accessibility="Public" Base="Shpurdp.SCOM.ActiveHostComponent" Hosted="true" Abstract="false" Singleton="false" />
+        <ClassType ID="Shpurdp.SCOM.HostComponent.Pig" Accessibility="Public" Base="Shpurdp.SCOM.HostComponent" Hosted="true" Abstract="false" Singleton="false" />
+        <ClassType ID="Shpurdp.SCOM.HostComponent.Sqoop" Accessibility="Public" Base="Shpurdp.SCOM.HostComponent" Hosted="true" Abstract="false" Singleton="false" />
+        <ClassType ID="Shpurdp.SCOM.HostComponent.HistoryServer" Accessibility="Public" Base="Shpurdp.SCOM.HeadNodeComponent" Hosted="true" Abstract="false" Singleton="false" />
+        <ClassType ID="Shpurdp.SCOM.HostComponent.MapReduce2Client" Accessibility="Public" Base="Shpurdp.SCOM.HostComponent" Hosted="true" Abstract="false" Singleton="false" />
+        <ClassType ID="Shpurdp.SCOM.HostComponent.NodeManager" Accessibility="Public" Base="Shpurdp.SCOM.HeadNodeComponent" Hosted="true" Abstract="false" Singleton="false"/>
+        <ClassType ID="Shpurdp.SCOM.HostComponent.ResourceManager" Accessibility="Public" Base="Shpurdp.SCOM.HeadNodeComponent" Hosted="true" Abstract="false" Singleton="false" />
+        <ClassType ID="Shpurdp.SCOM.HostComponent.YarnClient" Accessibility="Public" Base="Shpurdp.SCOM.HostComponent" Hosted="true" Abstract="false" Singleton="false" />
+        <ClassType ID="Shpurdp.SCOM.HostComponent.ZooKeeperClient" Accessibility="Public" Base="Shpurdp.SCOM.HostComponent" Hosted="true" Abstract="false" Singleton="false" />
+        <ClassType ID="Shpurdp.SCOM.HostComponent.ZooKeeperServer" Accessibility="Public" Base="Shpurdp.SCOM.ActiveHostComponent" Hosted="true" Abstract="false" Singleton="false" />
+        <ClassType ID="Shpurdp.SCOM.HostComponent.JournalNode" Accessibility="Public" Base="Shpurdp.SCOM.HostComponent" Hosted="true" Abstract="false" Singleton="false" />
+        <ClassType ID="Shpurdp.SCOM.HostComponent.ZKFC" Accessibility="Public" Base="Shpurdp.SCOM.HostComponent" Hosted="true" Abstract="false" Singleton="false" />
+      </ClassTypes>
+
+      <RelationshipTypes>
+        <RelationshipType ID="Shpurdp.SCOM.HostHostsHostComponent" Base="System!System.Hosting" Abstract="false" Accessibility="Public">
+          <Source ID="Host" Type="Shpurdp.SCOM.Host" />
+          <Target ID="Component" Type="Shpurdp.SCOM.HostComponent" />
+        </RelationshipType>
+      </RelationshipTypes>
+    </EntityTypes>
+  </TypeDefinitions>
+
+  <Presentation>
+    <ImageReferences>
+      <ImageReference ElementID="Shpurdp.SCOM.HostComponent.DataNode" ImageID="Shpurdp.SCOM.Resources.Images.DataNode16Icon" />
+      <ImageReference ElementID="Shpurdp.SCOM.HostComponent.DataNode" ImageID="Shpurdp.SCOM.Resources.Images.DataNodeDiagramIcon" />
+      <ImageReference ElementID="Shpurdp.SCOM.HostComponent.NameNode" ImageID="Shpurdp.SCOM.Resources.Images.NameNode16Icon" />
+      <ImageReference ElementID="Shpurdp.SCOM.HostComponent.NameNode" ImageID="Shpurdp.SCOM.Resources.Images.NameNodeDiagramIcon" />
+      <ImageReference ElementID="Shpurdp.SCOM.HostComponent.SecondaryNameNode" ImageID="Shpurdp.SCOM.Resources.Images.SecNameNode16Icon" />
+      <ImageReference ElementID="Shpurdp.SCOM.HostComponent.SecondaryNameNode" ImageID="Shpurdp.SCOM.Resources.Images.SecNameNodeDiagramIcon" />
+      <ImageReference ElementID="Shpurdp.SCOM.HostComponent.JobTracker" ImageID="Shpurdp.SCOM.Resources.Images.JobTracker16Icon" />
+      <ImageReference ElementID="Shpurdp.SCOM.HostComponent.JobTracker" ImageID="Shpurdp.SCOM.Resources.Images.JobTrackerDiagramIcon" />
+      <ImageReference ElementID="Shpurdp.SCOM.HostComponent.TaskTracker" ImageID="Shpurdp.SCOM.Resources.Images.TaskTracker16Icon" />
+      <ImageReference ElementID="Shpurdp.SCOM.HostComponent.TaskTracker" ImageID="Shpurdp.SCOM.Resources.Images.TaskTrackerDiagramIcon" />
+      <ImageReference ElementID="Shpurdp.SCOM.HostComponent.HiveServer" ImageID="Shpurdp.SCOM.Resources.Images.HiveServer16Icon" />
+      <ImageReference ElementID="Shpurdp.SCOM.HostComponent.HiveServer" ImageID="Shpurdp.SCOM.Resources.Images.HiveServerDiagramIcon" />
+      <ImageReference ElementID="Shpurdp.SCOM.HostComponent.HiveMetastore" ImageID="Shpurdp.SCOM.Resources.Images.HiveMetastore16Icon" />
+      <ImageReference ElementID="Shpurdp.SCOM.HostComponent.HiveMetastore" ImageID="Shpurdp.SCOM.Resources.Images.HiveMetastoreDiagramIcon" />
+      <ImageReference ElementID="Shpurdp.SCOM.HostComponent.HiveClient" ImageID="Shpurdp.SCOM.Resources.Images.HiveClient16Icon" />
+      <ImageReference ElementID="Shpurdp.SCOM.HostComponent.HiveClient" ImageID="Shpurdp.SCOM.Resources.Images.HiveClientDiagramIcon" />
+      <ImageReference ElementID="Shpurdp.SCOM.HostComponent.TempletonServer" ImageID="Shpurdp.SCOM.Resources.Images.TempletonServer16Icon" />
+      <ImageReference ElementID="Shpurdp.SCOM.HostComponent.TempletonServer" ImageID="Shpurdp.SCOM.Resources.Images.TempletonServerDiagramIcon" />
+      <ImageReference ElementID="Shpurdp.SCOM.HostComponent.OozieServer" ImageID="Shpurdp.SCOM.Resources.Images.OozieServer16Icon" />
+      <ImageReference ElementID="Shpurdp.SCOM.HostComponent.OozieServer" ImageID="Shpurdp.SCOM.Resources.Images.OozieServerDiagramIcon" />
+      <ImageReference ElementID="Shpurdp.SCOM.HostComponent.Pig" ImageID="Shpurdp.SCOM.Resources.Images.Pig16Icon" />
+      <ImageReference ElementID="Shpurdp.SCOM.HostComponent.Pig" ImageID="Shpurdp.SCOM.Resources.Images.PigDiagramIcon" />
+      <ImageReference ElementID="Shpurdp.SCOM.HostComponent.Sqoop" ImageID="Shpurdp.SCOM.Resources.Images.Scoop16Icon" />
+      <ImageReference ElementID="Shpurdp.SCOM.HostComponent.Sqoop" ImageID="Shpurdp.SCOM.Resources.Images.ScoopDiagramIcon" />
+      <ImageReference ElementID="Shpurdp.SCOM.HostComponent.HistoryServer" ImageID="Shpurdp.SCOM.Resources.Images.HistoryServer16Icon" />
+      <ImageReference ElementID="Shpurdp.SCOM.HostComponent.HistoryServer" ImageID="Shpurdp.SCOM.Resources.Images.HistoryServerDiagramIcon" />
+      <ImageReference ElementID="Shpurdp.SCOM.HostComponent.MapReduce2Client" ImageID="Shpurdp.SCOM.Resources.Images.Mapreduce2Client16Icon" />
+      <ImageReference ElementID="Shpurdp.SCOM.HostComponent.MapReduce2Client" ImageID="Shpurdp.SCOM.Resources.Images.Mapreduce2ClientDiagramIcon" />
+      <ImageReference ElementID="Shpurdp.SCOM.HostComponent.NodeManager" ImageID="Shpurdp.SCOM.Resources.Images.NodeManager16Icon" />
+      <ImageReference ElementID="Shpurdp.SCOM.HostComponent.NodeManager" ImageID="Shpurdp.SCOM.Resources.Images.NodeManagerDiagramIcon" />
+      <ImageReference ElementID="Shpurdp.SCOM.HostComponent.ResourceManager" ImageID="Shpurdp.SCOM.Resources.Images.ResourceManager16Icon" />
+      <ImageReference ElementID="Shpurdp.SCOM.HostComponent.ResourceManager" ImageID="Shpurdp.SCOM.Resources.Images.ResourceManagerDiagramIcon" />
+      <ImageReference ElementID="Shpurdp.SCOM.HostComponent.YarnClient" ImageID="Shpurdp.SCOM.Resources.Images.YarnClient16Icon" />
+      <ImageReference ElementID="Shpurdp.SCOM.HostComponent.YarnClient" ImageID="Shpurdp.SCOM.Resources.Images.YarnClientDiagramIcon" />
+      <ImageReference ElementID="Shpurdp.SCOM.HostComponent.ZooKeeperClient" ImageID="Shpurdp.SCOM.Resources.Images.ZooKeeperClient16Icon" />
+      <ImageReference ElementID="Shpurdp.SCOM.HostComponent.ZooKeeperClient" ImageID="Shpurdp.SCOM.Resources.Images.ZooKeeperClientDiagramIcon" />
+      <ImageReference ElementID="Shpurdp.SCOM.HostComponent.ZooKeeperServer" ImageID="Shpurdp.SCOM.Resources.Images.ZooKeeperServer16Icon" />
+      <ImageReference ElementID="Shpurdp.SCOM.HostComponent.ZooKeeperServer" ImageID="Shpurdp.SCOM.Resources.Images.ZooKeeperServerDiagramIcon" />
+      <ImageReference ElementID="Shpurdp.SCOM.HostComponent.JournalNode" ImageID="Shpurdp.SCOM.Resources.Images.JournalNode16Icon" />
+      <ImageReference ElementID="Shpurdp.SCOM.HostComponent.JournalNode" ImageID="Shpurdp.SCOM.Resources.Images.JournalNodeDiagramIcon" />
+      <ImageReference ElementID="Shpurdp.SCOM.HostComponent.ZKFC" ImageID="Shpurdp.SCOM.Resources.Images.ZKFC16Icon" />
+      <ImageReference ElementID="Shpurdp.SCOM.HostComponent.ZKFC" ImageID="Shpurdp.SCOM.Resources.Images.ZKFCDiagramIcon" />
+
+  
+    </ImageReferences>
+  </Presentation>
+
+
+  <LanguagePacks>
+    <LanguagePack ID="ENU" IsDefault="true">
+      <DisplayStrings>
+        <DisplayString ElementID="Shpurdp.SCOM.HostComponent">
+          <Name>Hadoop Host Component</Name>
+          <Description>This is a base class for all Hadoop Host Component.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Shpurdp.SCOM.HostComponent" SubElementID="ClusterName">
+          <Name>Cluster Name</Name>
+        </DisplayString>
+        <DisplayString ElementID="Shpurdp.SCOM.HostComponent" SubElementID="ComponentName">
+          <Name>Component Name</Name>
+        </DisplayString>
+        <DisplayString ElementID="Shpurdp.SCOM.HostComponent" SubElementID="ParentHostName">
+          <Name>Host Name</Name>
+        </DisplayString>
+
+
+
+        <DisplayString ElementID="Shpurdp.SCOM.ActiveHostComponent">
+          <Name>Hadoop Active Host Component</Name>
+          <Description>This is a base class for all components that are represented by daemon/service running on the Host.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Shpurdp.SCOM.BasicPerformanceHostComponent">
+          <Name>Hadoop Basic Performance Host Component</Name>
+          <Description>This is a base class for all components that provides basic performance data.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Shpurdp.SCOM.HeadNodeComponent">
+          <Name>Hadoop Head Node Component</Name>
+          <Description>This is a base class for Hadoop Host Components hosted on Head Node.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Shpurdp.SCOM.HostComponent.DataNode">
+          <Name>Hadoop DataNode Service</Name>
+          <Description>This class represents Hadoop DataNode Service running on the Host.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Shpurdp.SCOM.HostComponent.NameNode">
+          <Name>Hadoop NameNode Service</Name>
+          <Description>This class represents Hadoop NameNode Service running on the Host.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Shpurdp.SCOM.HostComponent.SecondaryNameNode">
+          <Name>Hadoop Secondary NameNode Service</Name>
+          <Description>This class represents Hadoop Secondary NameNode Service running on the Host.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Shpurdp.SCOM.HostComponent.JobTracker">
+          <Name>Hadoop JobTracker Service</Name>
+          <Description>This class represents Hadoop JobTracker Service running on the Host.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Shpurdp.SCOM.HostComponent.TaskTracker">
+          <Name>Hadoop TaskTracker Service</Name>
+          <Description>This class represents Hadoop TaskTracker Service running on the Host.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Shpurdp.SCOM.HostComponent.TempletonServer">
+          <Name>Hadoop WebHCat Server Service</Name>
+          <Description>This class represents Hadoop WebHCat Server Service running on the Host.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Shpurdp.SCOM.HostComponent.HiveServer">
+          <Name>Hadoop Hive Server Service</Name>
+          <Description>This class represents Hadoop Hive Server Service running on the Host.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Shpurdp.SCOM.HostComponent.HiveMetastore">
+          <Name>Hadoop Hive Metastore Service</Name>
+          <Description>This class represents Hadoop Hive Metastore Service running on the Host.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Shpurdp.SCOM.HostComponent.HiveClient">
+          <Name>Hadoop Hive Client Component</Name>
+          <Description>This class represents Hadoop Hive Client Component on the Host.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Shpurdp.SCOM.HostComponent.OozieServer">
+          <Name>Hadoop Oozie Server Service</Name>
+          <Description>This class represents Hadoop Oozie Server Service running on the Host.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Shpurdp.SCOM.HostComponent.Pig">
+          <Name>Hadoop Pig Component</Name>
+          <Description>This class represents Hadoop Pig Component on the Host.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Shpurdp.SCOM.HostComponent.Sqoop">
+          <Name>Hadoop Sqoop Component</Name>
+          <Description>This class represents Hadoop Sqoop Component on the Host.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Shpurdp.SCOM.HostComponent.HistoryServer">
+          <Name>Hadoop History Server Service</Name>
+          <Description>This class represents Hadoop History Server Service running on the Host.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Shpurdp.SCOM.HostComponent.MapReduce2Client">
+          <Name>Hadoop MapReduce 2 Client Component</Name>
+          <Description>This class represents Hadoop MapReduce 2 Client Component on the Host.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Shpurdp.SCOM.HostComponent.NodeManager">
+          <Name>Hadoop Node Manager Service</Name>
+          <Description>This class represents Hadoop Node Manager Service running on the Host.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Shpurdp.SCOM.HostComponent.ResourceManager">
+          <Name>Hadoop Resource Manager Service</Name>
+          <Description>This class represents Hadoop Resource Manager Service running on the Host.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Shpurdp.SCOM.HostComponent.YarnClient">
+          <Name>YARN Client Component</Name>
+          <Description>This class represents Hadoop YARN Client Component on the Host.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Shpurdp.SCOM.HostComponent.ZooKeeperClient">
+          <Name>ZooKeeper Client Component</Name>
+          <Description>This class represents Hadoop ZooKeeper Client Component on the Host.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Shpurdp.SCOM.HostComponent.ZooKeeperServer">
+          <Name>ZooKeeper Server Component</Name>
+          <Description>This class represents Hadoop ZooKeeper Server Component on the Host.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Shpurdp.SCOM.HostComponent.JournalNode">
+          <Name>JournalNode Component</Name>
+          <Description>This class represents Hadoop JournalNode Component on the Host.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Shpurdp.SCOM.HostComponent.ZKFC">
+          <Name>ZKFC Component</Name>
+          <Description>This class represents Hadoop ZooKeeper Failover Controller Component on the Host.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Shpurdp.SCOM.HostHostsHostComponent">
+          <Name>Host hosts HostComponent relation</Name>
+          <Description>Host hosts HostComponent relation</Description>
+        </DisplayString>
+      </DisplayStrings>
+    </LanguagePack>
+  </LanguagePacks>
+</ManagementPackFragment>

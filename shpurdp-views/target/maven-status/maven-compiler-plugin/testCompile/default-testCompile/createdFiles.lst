@@ -1,0 +1,4 @@
+org/apache/shpurdp/view/NoSuchResourceExceptionTest.class
+org/apache/shpurdp/view/UnsupportedPropertyExceptionTest.class
+org/apache/shpurdp/view/ViewXmlTest.class
+org/apache/shpurdp/view/ResourceAlreadyExistsExceptionTest.class

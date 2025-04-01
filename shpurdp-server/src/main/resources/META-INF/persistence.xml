@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Licensed to the Apache Software Foundation (ASF) under one or more contributor
+  license agreements. See the NOTICE file distributed with this work for additional
+  information regarding copyright ownership. The ASF licenses this file to
+  You under the Apache License, Version 2.0 (the "License"); you may not use
+  this file except in compliance with the License. You may obtain a copy of
+  the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required
+  by applicable law or agreed to in writing, software distributed under the
+  License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
+  OF ANY KIND, either express or implied. See the License for the specific
+  language governing permissions and limitations under the License. -->
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
+
+  <persistence-unit name="shpurdp-server" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>org.apache.shpurdp.server.orm.entities.AlertCurrentEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.AlertDefinitionEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.AlertGroupEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.AlertHistoryEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.AlertNoticeEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.AlertTargetEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.ArtifactEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.BlueprintConfigEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.BlueprintSettingEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.BlueprintEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.ClusterConfigEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.ClusterEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.ClusterServiceEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.ClusterStateEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.ConfigGroupConfigMappingEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.ConfigGroupEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.ConfigGroupHostMappingEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.ExecutionCommandEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.ExtensionEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.ExtensionLinkEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.GroupEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.HostComponentDesiredStateEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.HostComponentStateEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.HostConfigMappingEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.HostEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.HostGroupComponentEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.HostGroupConfigEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.HostGroupEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.HostRoleCommandEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.HostStateEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.HostVersionEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.KerberosPrincipalEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.KerberosKeytabEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.KerberosKeytabPrincipalEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.KerberosKeytabServiceMappingEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.KeyValueEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.MemberEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.MetainfoEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.PermissionEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.RoleAuthorizationEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.PrincipalEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.PrincipalTypeEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.PrivilegeEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.RepositoryVersionEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.RepoOsEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.RepoDefinitionEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.RequestEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.RequestOperationLevelEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.RequestResourceFilterEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.RequestScheduleBatchRequestEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.RequestScheduleEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.ResourceEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.ResourceTypeEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.RoleSuccessCriteriaEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.ServiceComponentDesiredStateEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.ServiceComponentVersionEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.ServiceConfigEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.ServiceDesiredStateEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.StackEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.StageEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.UpgradeEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.UpgradeGroupEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.UpgradeItemEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.UpgradeHistoryEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.UserEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.UserAuthenticationEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.WidgetEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.ViewEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.ViewEntityEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.ViewInstanceDataEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.ViewInstanceEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.ViewURLEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.ViewInstancePropertyEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.ViewParameterEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.ViewResourceEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.WidgetLayoutEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.WidgetLayoutUserWidgetEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.TopologyRequestEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.TopologyLogicalRequestEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.TopologyHostRequestEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.TopologyHostGroupEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.TopologyHostInfoEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.TopologyHostTaskEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.TopologyLogicalTaskEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.SettingEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.KerberosDescriptorEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.RemoteShpurdpClusterEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.RemoteShpurdpClusterServiceEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.ShpurdpConfigurationEntity</class>
+    <class>org.apache.shpurdp.server.orm.entities.MpackEntity</class>
+
+    <properties>
+      <property name="eclipselink.cache.size.default" value="10000" />
+      <property name="eclipselink.jdbc.batch-writing" value="JDBC"/>
+      <property name="eclipselink.jdbc.batch-writing.size" value="4000"/>
+      <property name="eclipselink.connection-pool.sequence" value="true" />
+      <property name="eclipselink.weaving" value="static" />
+      <property name="eclipselink.session.customizer" value="org.apache.shpurdp.server.orm.EclipseLinkSessionCustomizer"/>
+      <property name="eclipselink.logging.logger" value="org.apache.shpurdp.server.logging.EclipseLinkLogger"/>
+      <property name="eclipselink.logging.level" value="INFO"/>
+    </properties>
+  </persistence-unit>
+
+  <!-- persistence unit for view persistence : entities are added dynamically -->
+  <persistence-unit name="shpurdp-views" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <properties>
+      <property name="eclipselink.cache.size.default" value="10000" />
+      <property name="eclipselink.jdbc.batch-writing" value="JDBC"/>
+      <property name="eclipselink.weaving" value="static" />
+      <property name="eclipselink.logging.logger" value="org.apache.shpurdp.server.logging.EclipseLinkLogger"/>
+      <property name="eclipselink.logging.level" value="INFO"/>
+    </properties>
+  </persistence-unit>
+  <persistence-unit name="shpurdp-view-migration" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <properties>
+      <property name="eclipselink.cache.size.default" value="10000" />
+      <property name="eclipselink.jdbc.batch-writing" value="JDBC"/>
+      <property name="eclipselink.weaving" value="static" />
+      <property name="eclipselink.logging.logger" value="org.apache.shpurdp.server.logging.EclipseLinkLogger"/>
+      <property name="eclipselink.logging.level" value="INFO"/>
+    </properties>
+  </persistence-unit>
+
+</persistence>

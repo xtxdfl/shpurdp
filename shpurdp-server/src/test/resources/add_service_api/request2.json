@@ -1,0 +1,24 @@
+{
+  "services": [
+    { "name" : "STORM" },
+    { "name" : "BEACON" }
+  ],
+
+  "components" : [
+    {
+      "name" : "NIMBUS",
+      "hosts": [
+        { "fqdn" : "c7401.shpurdp.apache.org" },
+        { "fqdn" : "c7402.shpurdp.apache.org" }
+      ]
+    },
+    {
+      "name" : "BEACON_SERVER",
+      "hosts": [
+        { "fqdn" : "c7402.shpurdp.apache.org" },
+        { "fqdn" : "c7403.shpurdp.apache.org" }
+      ]
+    }
+  ]
+
+}

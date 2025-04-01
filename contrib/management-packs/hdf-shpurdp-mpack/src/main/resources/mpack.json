@@ -1,0 +1,30 @@
+{
+  "type" : "full-release",
+  "name" : "hdf-shpurdp-mpack",
+  "version": "${project.version}",
+  "description" : "HDF Shpurdp Management Pack",
+  "prerequisites": {
+    "min-shpurdp-version" : "${minShpurdpVersion}",
+    "max-shpurdp-version" : "${maxShpurdpVersion}"
+  },
+  "hooks": [
+    {
+      "name": "after-install",
+      "type": "python",
+      "script": "hooks/after_install.py"
+    }
+  ],
+  "artifacts": [
+    {
+      "name" : "hdf-service-definitions",
+      "type" : "service-definitions",
+      "source_dir": "common-services"
+    },
+    {
+      "name" : "hdf-stack-definitions",
+      "type" : "stack-definitions",
+      "source_dir": "stacks"
+    }
+  ]
+}
+

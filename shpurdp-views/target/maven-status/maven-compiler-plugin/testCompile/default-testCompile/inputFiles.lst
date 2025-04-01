@@ -1,0 +1,4 @@
+/root/shpurdp/shpurdp-views/src/test/java/org/apache/shpurdp/view/UnsupportedPropertyExceptionTest.java
+/root/shpurdp/shpurdp-views/src/test/java/org/apache/shpurdp/view/NoSuchResourceExceptionTest.java
+/root/shpurdp/shpurdp-views/src/test/java/org/apache/shpurdp/view/ResourceAlreadyExistsExceptionTest.java
+/root/shpurdp/shpurdp-views/src/test/java/org/apache/shpurdp/view/ViewXmlTest.java

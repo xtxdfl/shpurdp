@@ -1,0 +1,92 @@
+﻿<!--## Licensed to the Apache Software Foundation (ASF) under one
+## or more contributor license agreements.  See the NOTICE file
+## distributed with this work for additional information
+## regarding copyright ownership.  The ASF licenses this file
+## to you under the Apache License, Version 2.0 (the
+## "License"); you may not use this file except in compliance
+## with the License.  You may obtain a copy of the License at
+##
+##     http://www.apache.org/licenses/LICENSE-2.0
+##
+## Unless required by applicable law or agreed to in writing,
+## software distributed under the License is distributed on an
+## "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+## KIND, either express or implied.  See the License for the
+## specific language governing permissions and limitations
+## under the License.-->
+
+<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Monitoring>
+    <Monitors>
+      <UnitMonitor ID="Shpurdp.SCOM.APIAvailabilityMonitor" Accessibility="Public" Enabled="true" Target="Shpurdp.SCOM.ShpurdpSeed" ParentMonitorID="Health!System.Health.AvailabilityState" Remotable="true" Priority="Normal" TypeID="Shpurdp.SCOM.SyntheticTransactionMonitorType" ConfirmDelivery="true">
+        <Category>Custom</Category>
+        <AlertSettings AlertMessage="Shpurdp.SCOM.APIAvailabilityMonitor.AlertMessage">
+          <AlertOnState>Error</AlertOnState>
+          <AutoResolve>true</AutoResolve>
+          <AlertPriority>Normal</AlertPriority>
+          <AlertSeverity>Error</AlertSeverity>
+          <AlertParameters>
+            <AlertParameter1>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</AlertParameter1>
+            <AlertParameter2>$Target/Property[Type="Shpurdp.SCOM.ShpurdpSeed"]/ShpurdpUri$</AlertParameter2>
+          </AlertParameters>
+        </AlertSettings>
+        <OperationalStates>
+          <OperationalState ID="HealthyState" MonitorTypeStateID="Healthy" HealthState="Success" />
+          <OperationalState ID="ErrorState" MonitorTypeStateID="Error" HealthState="Error" />
+        </OperationalStates>
+        <Configuration>
+          <ErrorCode>1903</ErrorCode>
+          <TimeInterval>900</TimeInterval>
+        </Configuration>
+      </UnitMonitor>
+    </Monitors>
+  </Monitoring>
+  <Presentation>
+    <StringResources>
+      <StringResource ID="Shpurdp.SCOM.APIAvailabilityMonitor.AlertMessage" />
+    </StringResources>
+  </Presentation>
+  <LanguagePacks>
+    <LanguagePack ID="ENU" IsDefault="true">
+      <DisplayStrings>
+        <DisplayString ElementID="Shpurdp.SCOM.APIAvailabilityMonitor">
+          <Name>Shpurdp Availability monitor</Name>
+          <Description>This monitor checks  availability of Shpurdp server.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Shpurdp.SCOM.APIAvailabilityMonitor" SubElementID="HealthyState">
+          <Name>Healthy state</Name>
+        </DisplayString>
+        <DisplayString ElementID="Shpurdp.SCOM.APIAvailabilityMonitor" SubElementID="ErrorState">
+          <Name>Error state</Name>
+        </DisplayString>
+        <DisplayString ElementID="Shpurdp.SCOM.APIAvailabilityMonitor.AlertMessage">
+          <Name>Connection to Hadoop Shpurdp server {1} from watcher {0} failed.</Name>
+          <Description>Connection to Hadoop Shpurdp server {1} from watcher {0} failed.</Description>
+        </DisplayString>
+      </DisplayStrings>
+      <KnowledgeArticles>
+        <KnowledgeArticle ElementID="Shpurdp.SCOM.APIAvailabilityMonitor" Visible="true">
+          <MamlContent>
+            <section xmlns="http://schemas.microsoft.com/maml/2004/10">
+              <title>Summary</title>
+              <para>This monitor checks  availability of Shpurdp server.</para>
+            </section>
+            <section xmlns="http://schemas.microsoft.com/maml/2004/10">
+              <title>Causes</title>
+              <para>This monitor turns to Critical state if Shpurdp Management Pack is unable to connect to Shpurdp server because of one of the following reasons:</para>
+              <para>-	wrong configuration</para>
+              <para>-	network issue</para>
+              <para>-	Shpurdp server problems</para>
+            </section>
+            <section xmlns="http://schemas.microsoft.com/maml/2004/10">
+              <title>Resolutions</title>
+              <para>Most recent reason for this issue -   wrong address of Shpurdp server, entered during Management Pack configuration. Please check that you’ve entered a valid connection string for Shpurdp server.</para>
+              <para>If Shpurdp server address is valid - check that Shpurdp server is running and reachable from watcher node.</para>
+            </section>
+          </MamlContent>
+        </KnowledgeArticle>
+      </KnowledgeArticles>
+
+    </LanguagePack>
+  </LanguagePacks>
+</ManagementPackFragment>

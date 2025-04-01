@@ -1,0 +1,360 @@
+﻿<!--## Licensed to the Apache Software Foundation (ASF) under one
+## or more contributor license agreements.  See the NOTICE file
+## distributed with this work for additional information
+## regarding copyright ownership.  The ASF licenses this file
+## to you under the Apache License, Version 2.0 (the
+## "License"); you may not use this file except in compliance
+## with the License.  You may obtain a copy of the License at
+##
+##     http://www.apache.org/licenses/LICENSE-2.0
+##
+## Unless required by applicable law or agreed to in writing,
+## software distributed under the License is distributed on an
+## "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+## KIND, either express or implied.  See the License for the
+## specific language governing permissions and limitations
+## under the License.-->
+
+<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Templates>
+    <Template ID="Shpurdp.SCOM.Template.ClustersDiscovery">
+      <Configuration>
+        <xsd:element name="Name" type="xsd:string" />
+        <xsd:element name="Description" type="xsd:string" />
+        <xsd:element name="ShpurdpUri" type="xsd:string" />
+        <xsd:element name="RunAsAccount" type="xsd:string" />
+        <xsd:element name="WatcherNodesList" type="xsd:string" />
+        <xsd:element name="SeedComputerName" type="xsd:string" />
+        <xsd:element name="TemplateIdString" type="xsd:string" />
+      </Configuration>
+      <References>
+        <Reference ID="Self" />
+        <Reference ID="System" />
+        <Reference ID="Windows" />
+        <Reference ID="SC" />
+      </References>
+      <Implementation>
+        <TypeDefinitions>
+          <EntityTypes>
+            <ClassTypes>
+              <ClassType ID="Shpurdp.SCOM.ShpurdpSeed.$TemplateConfig/TemplateIdString$"
+                         Base="$Reference/Self$Shpurdp.SCOM.ShpurdpSeed"
+                         Accessibility="Internal" Abstract="false" Hosted="true" Singleton="false" />
+              <ClassType ID="Shpurdp.SCOM.ClusterSeed.$TemplateConfig/TemplateIdString$"
+                         Base="$Reference/Self$Shpurdp.SCOM.ClusterSeed"
+                         Accessibility="Internal" Abstract="false" Hosted="false" Singleton="false" />
+            </ClassTypes>
+          </EntityTypes>
+        </TypeDefinitions>
+        <Monitoring>
+          <Discoveries>
+            <Discovery ID="Shpurdp.SCOM.Discovery.ShpurdpSeed.$TemplateConfig/TemplateIdString$" Enabled="true" Target="$Reference/SC$Microsoft.SystemCenter.ManagementGroup">
+              <Category>Discovery</Category>
+              <DiscoveryTypes>
+                <DiscoveryClass TypeID="Shpurdp.SCOM.ShpurdpSeed.$TemplateConfig/TemplateIdString$">
+                  <Property TypeID="$Reference/System$System.Entity" PropertyID="DisplayName" />
+                  <Property TypeID="$Reference/Self$Shpurdp.SCOM.ShpurdpSeed" PropertyID="ShpurdpUri" />
+                </DiscoveryClass>
+              </DiscoveryTypes>
+              <DataSource ID="DS" TypeID="$Reference/Self$Shpurdp.SCOM.Module.ShpurdpSeedDiscoveryDataSource">
+                <IntervalSeconds>14400</IntervalSeconds>
+                <SyncTime />
+                <TemplateName>$TemplateConfig/Name$</TemplateName>
+                <SeedClassId>$MPElement[Name="Shpurdp.SCOM.ShpurdpSeed.$TemplateConfig/TemplateIdString$"]$</SeedClassId>
+                <ComputerName>$TemplateConfig/SeedComputerName$</ComputerName>
+                <ShpurdpUri>$TemplateConfig/ShpurdpUri$</ShpurdpUri>
+              </DataSource>
+            </Discovery>
+            
+            <Discovery ID="Shpurdp.SCOM.Discovery.Clusters.$TemplateConfig/TemplateIdString$"
+                       Target="Shpurdp.SCOM.ShpurdpSeed.$TemplateConfig/TemplateIdString$"
+                       Enabled="true" ConfirmDelivery="false" Remotable="true" Priority="Normal">
+              <Category>Discovery</Category>
+              <DiscoveryTypes>
+                <DiscoveryClass TypeID="$Reference/Self$Shpurdp.SCOM.Cluster">
+                  <Property TypeID="$Reference/System$System.Entity" PropertyID="DisplayName" />
+                </DiscoveryClass>
+                <DiscoveryClass TypeID="$Reference/Self$Shpurdp.SCOM.ClusterProjection">
+                  <Property TypeID="$Reference/System$System.Entity" PropertyID="DisplayName" />
+                </DiscoveryClass>
+                <DiscoveryClass TypeID="$Reference/Self$Shpurdp.SCOM.ClusterSoftwareProjection" />
+                <DiscoveryClass TypeID="$Reference/Self$Shpurdp.SCOM.ClusterHardwareProjection" />
+                <DiscoveryRelationship TypeID="$Reference/SC$Microsoft.SystemCenter.HealthServiceShouldManageEntity" />
+                <DiscoveryRelationship TypeID="$Reference/Self$Shpurdp.SCOM.ShpurdpSeedContainsCluster" />
+                <DiscoveryRelationship TypeID="$Reference/Self$Shpurdp.SCOM.ClusterHostsClusterSoftwareProjection" />
+                <DiscoveryRelationship TypeID="$Reference/Self$Shpurdp.SCOM.ClusterHostsClusterHardwareProjection" />
+              </DiscoveryTypes>
+              <DataSource ID="DS" TypeID="$Reference/Self$Shpurdp.SCOM.Module.ClustersDiscoveryDataSource">
+                <IntervalSeconds>14400</IntervalSeconds>
+                <SyncTime />
+                <TimeoutSeconds>300</TimeoutSeconds>
+                <TemplateName>$Target/Property[Type="$Reference/Self$Shpurdp.SCOM.ShpurdpSeed"]/TemplateName$</TemplateName>
+                <SeedComputerName>$Target/Host/Property[Type="$Reference/Windows$Microsoft.Windows.Computer"]/PrincipalName$</SeedComputerName>
+                <ClusterSeedClassId>$MPElement[Name="Shpurdp.SCOM.ClusterSeed.$TemplateConfig/TemplateIdString$"]$</ClusterSeedClassId>
+                <ShpurdpUri>$Target/Property[Type="$Reference/Self$Shpurdp.SCOM.ShpurdpSeed"]/ShpurdpUri$</ShpurdpUri>
+                <ClustersQueryUriSegment>v1/clusters</ClustersQueryUriSegment>
+                <WatcherNodesList>$TemplateConfig/WatcherNodesList$</WatcherNodesList>
+              </DataSource>
+            </Discovery>
+
+            <Discovery ID="Shpurdp.SCOM.Discovery.Hosts.$TemplateConfig/TemplateIdString$"
+                       Target="Shpurdp.SCOM.ClusterSeed.$TemplateConfig/TemplateIdString$"
+                       Enabled="true" ConfirmDelivery="false" Remotable="true" Priority="Normal">
+              <Category>Discovery</Category>
+              <DiscoveryTypes>
+                <DiscoveryClass TypeID="$Reference/Self$Shpurdp.SCOM.Host">
+                  <Property TypeID="$Reference/System$System.Entity" PropertyID="DisplayName" />
+                  <Property TypeID="$Reference/Self$Shpurdp.SCOM.Host" PropertyID="IpAddress" />
+                </DiscoveryClass>
+                <DiscoveryRelationship TypeID="$Reference/SC$Microsoft.SystemCenter.HealthServiceShouldManageEntity" />
+                <DiscoveryRelationship TypeID="$Reference/Self$Shpurdp.SCOM.ClusterHardwareProjectionContainsHost" />
+              </DiscoveryTypes>
+              <DataSource ID="DS" TypeID="$Reference/Self$Shpurdp.SCOM.Module.HostsDiscoveryDataSource">
+                <IntervalSeconds>14400</IntervalSeconds>
+                <SyncTime />
+                <TimeoutSeconds>300</TimeoutSeconds>
+                <TemplateName>$Target/Property[Type="$Reference/Self$Shpurdp.SCOM.ClusterSeed"]/TemplateName$</TemplateName>
+                <ClusterName>$Target/Property[Type="$Reference/Self$Shpurdp.SCOM.ClusterSeed"]/ClusterName$</ClusterName>
+                <ClusterShpurdpUri>$Target/Property[Type="$Reference/Self$Shpurdp.SCOM.ShpurdpManagedEntity"]/ShpurdpUri$</ClusterShpurdpUri>
+                <WatcherNodesList>$TemplateConfig/WatcherNodesList$</WatcherNodesList>
+              </DataSource>
+            </Discovery>
+
+            <Discovery ID="Shpurdp.SCOM.Discovery.ClusterServices.$TemplateConfig/TemplateIdString$"
+                       Target="Shpurdp.SCOM.ClusterSeed.$TemplateConfig/TemplateIdString$"
+                       Enabled="true" ConfirmDelivery="false" Remotable="true" Priority="Normal">
+              <Category>Discovery</Category>
+              <DiscoveryTypes>
+                <DiscoveryClass TypeID="$Reference/Self$Shpurdp.SCOM.ClusterServiceBase">
+                  <Property TypeID="$Reference/System$System.Entity" PropertyID="DisplayName" />
+                </DiscoveryClass>
+                <DiscoveryClass TypeID="$Reference/Self$Shpurdp.SCOM.ClusterService.Hdfs" />
+                <DiscoveryClass TypeID="$Reference/Self$Shpurdp.SCOM.ClusterService.MapReduce" />
+                <DiscoveryClass TypeID="$Reference/Self$Shpurdp.SCOM.ClusterService.Hive" />
+                <DiscoveryClass TypeID="$Reference/Self$Shpurdp.SCOM.ClusterService.Templeton" />
+                <DiscoveryClass TypeID="$Reference/Self$Shpurdp.SCOM.ClusterService.Oozie" />
+                <DiscoveryClass TypeID="$Reference/Self$Shpurdp.SCOM.ClusterService.Pig" />
+                <DiscoveryClass TypeID="$Reference/Self$Shpurdp.SCOM.ClusterService.Sqoop" />
+                <DiscoveryClass TypeID="$Reference/Self$Shpurdp.SCOM.ClusterService.MapReduce2" />
+                <DiscoveryClass TypeID="$Reference/Self$Shpurdp.SCOM.ClusterService.Yarn" />
+                <DiscoveryRelationship TypeID="$Reference/SC$Microsoft.SystemCenter.HealthServiceShouldManageEntity" />
+                <DiscoveryRelationship TypeID="$Reference/Self$Shpurdp.SCOM.ClusterSoftwareProjectionContainsClusterService" />
+              </DiscoveryTypes>
+              <DataSource ID="DS" TypeID="$Reference/Self$Shpurdp.SCOM.Module.ClusterServicesDiscoveryDataSource">
+                <IntervalSeconds>14400</IntervalSeconds>
+                <SyncTime />
+                <TimeoutSeconds>300</TimeoutSeconds>
+                <TemplateName>$Target/Property[Type="$Reference/Self$Shpurdp.SCOM.ClusterSeed"]/TemplateName$</TemplateName>
+                <ClusterName>$Target/Property[Type="$Reference/Self$Shpurdp.SCOM.ClusterSeed"]/ClusterName$</ClusterName>
+                <ClusterShpurdpUri>$Target/Property[Type="$Reference/Self$Shpurdp.SCOM.ShpurdpManagedEntity"]/ShpurdpUri$</ClusterShpurdpUri>
+                <WatcherNodesList>$TemplateConfig/WatcherNodesList$</WatcherNodesList>
+              </DataSource>
+            </Discovery>
+          </Discoveries>
+          <Overrides>
+            <SecureReferenceOverride ID="Shpurdp.SCOM.Profile.Shpurdp.$TemplateConfig/TemplateIdString$.ShpurdpSeedOverride"
+                                     Context="Shpurdp.SCOM.ShpurdpSeed.$TemplateConfig/TemplateIdString$"
+                                     SecureReference="$Reference/Self$Shpurdp.SCOM.Profile.Shpurdp"
+                                     Enforced="false">
+              <Value>$TemplateConfig/RunAsAccount$</Value>
+            </SecureReferenceOverride>
+            <SecureReferenceOverride ID="Shpurdp.SCOM.Profile.Shpurdp.$TemplateConfig/TemplateIdString$.ClusterSeedOverride"
+                                     Context="Shpurdp.SCOM.ClusterSeed.$TemplateConfig/TemplateIdString$"
+                                     SecureReference="$Reference/Self$Shpurdp.SCOM.Profile.Shpurdp"
+                                     Enforced="false">
+              <Value>$TemplateConfig/RunAsAccount$</Value>
+            </SecureReferenceOverride>
+          </Overrides>
+        </Monitoring>
+        <LanguagePacks>
+          <LanguagePack ID="ENU" IsDefault="true">
+            <DisplayStrings>
+              <DisplayString ElementID="Shpurdp.SCOM.ShpurdpSeed.$TemplateConfig/TemplateIdString$">
+                <Name>Hadoop Shpurdp Service Seed ($TemplateConfig/Name$)</Name>
+                <Description>This class defines Hadoop Shpurdp Service Seed created by $TemplateConfig/Name$ template.</Description>
+              </DisplayString>
+              <DisplayString ElementID="Shpurdp.SCOM.ClusterSeed.$TemplateConfig/TemplateIdString$">
+                <Name>Hadoop Cluster Seed ($TemplateConfig/Name$)</Name>
+                <Description>This class defines Hadoop Cluster Seed created by $TemplateConfig/Name$ template.</Description>
+              </DisplayString>
+              <DisplayString ElementID="Shpurdp.SCOM.Discovery.ShpurdpSeed.$TemplateConfig/TemplateIdString$">
+                <Name>Hadoop Shpurdp Service Seed Discovery ($TemplateConfig/Name$)</Name>
+                <Description>This workflow discovers Hadoop Shpurdp Service Seed defined in the "$TemplateConfig/Name$" template.</Description>
+              </DisplayString>
+              <DisplayString ElementID="Shpurdp.SCOM.Discovery.Clusters.$TemplateConfig/TemplateIdString$">
+                <Name>Hadoop Clusters Discovery ($TemplateConfig/Name$)</Name>
+                <Description>This workflow discovers Hadoop Clusters managed by Shpurdp service defined in the "$TemplateConfig/Name$" template.</Description>
+              </DisplayString>
+              <DisplayString ElementID="Shpurdp.SCOM.Discovery.Hosts.$TemplateConfig/TemplateIdString$">
+                <Name>Hadoop Hosts Discovery ($TemplateConfig/Name$)</Name>
+                <Description>This workflow discovers Hadoop Hosts for specified Hadoop Cluster.</Description>
+              </DisplayString>
+              <DisplayString ElementID="Shpurdp.SCOM.Discovery.ClusterServices.$TemplateConfig/TemplateIdString$">
+                <Name>Hadoop Cluster Services Discovery ($TemplateConfig/Name$)</Name>
+                <Description>This workflow discovers Hadoop Cluster Services for specified Hadoop Cluster.</Description>
+              </DisplayString>
+            </DisplayStrings>
+          </LanguagePack>
+        </LanguagePacks>
+      </Implementation>
+    </Template>
+  </Templates>
+
+  <PresentationTypes>
+    <UIPages>
+      <UIPage ID="Shpurdp.SCOM.UIPage.ClustersDiscoveryTemplate.InputParser" Accessibility="Internal">
+        <Implementation>
+          <Assembly>Shpurdp.SCOM.Assembly.ScomPages</Assembly>
+          <Type>Shpurdp.SCOM.ScomPages.DiscoveryTemplate.InputParser</Type>
+        </Implementation>
+      </UIPage>
+      <UIPage ID="Shpurdp.SCOM.UIPage.ClustersDiscoveryTemplate.ShpurdpDetails" Accessibility="Public">
+        <Implementation>
+          <Assembly>Shpurdp.SCOM.Assembly.ScomPages</Assembly>
+          <Type>Shpurdp.SCOM.ScomPages.DiscoveryTemplate.ShpurdpDetailsPage</Type>
+        </Implementation>
+      </UIPage>
+      <UIPage ID="Shpurdp.SCOM.UIPage.ClustersDiscoveryTemplate.WatcherNodes" Accessibility="Public">
+        <Implementation>
+          <Assembly>Shpurdp.SCOM.Assembly.ScomPages</Assembly>
+          <Type>Shpurdp.SCOM.ScomPages.DiscoveryTemplate.WatcherNodesPage</Type>
+        </Implementation>
+      </UIPage>
+      <UIPage ID="Shpurdp.SCOM.UIPage.ClustersDiscoveryTemplate.Summary" Accessibility="Public">
+        <Implementation>
+          <Assembly>Shpurdp.SCOM.Assembly.ScomPages</Assembly>
+          <Type>Shpurdp.SCOM.ScomPages.DiscoveryTemplate.SummaryPage</Type>
+        </Implementation>
+      </UIPage>
+    </UIPages>
+    
+    <UIPageSets>
+      <UIPageSet ID="Shpurdp.SCOM.UIPageSet.ClustersDiscoveryTemplate"
+                 TypeDefinitionID="Shpurdp.SCOM.Template.ClustersDiscovery">
+        <UIPageReferences>
+          <UIPageReference ID="Shpurdp.SCOM.UIPageSet.ClustersDiscoveryTemplate.Reference1"
+                           PageID="System!System.NameAndDescriptionPage" Usage="CreationAndUpdate">
+            <InputTransform>
+              <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+                <xsl:output method="xml" indent="yes" omit-xml-declaration="yes" />
+                <xsl:template match="/">
+                  <xsl:element name="Name">
+                    <xsl:value-of select="//Name" />
+                  </xsl:element>
+                  <xsl:element name="Description">
+                    <xsl:value-of select="//Description" />
+                  </xsl:element>
+                </xsl:template>
+              </xsl:stylesheet>
+            </InputTransform>
+          </UIPageReference>
+          <UIPageReference ID="Shpurdp.SCOM.UIPageSet.ClustersDiscoveryTemplate.Reference2"
+                           PageID="Shpurdp.SCOM.UIPage.ClustersDiscoveryTemplate.ShpurdpDetails" Usage="CreationAndUpdate">
+            <InputTransform>
+              <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+                <xsl:output method="xml" indent="yes" omit-xml-declaration="yes" />
+                <xsl:template match="/">
+                  <xsl:element name="ShpurdpUri">
+                    <xsl:value-of select="//ShpurdpUri" />
+                  </xsl:element>
+                  <xsl:element name="RunAsAccount">
+                    <xsl:value-of select="//RunAsAccount" />
+                  </xsl:element>
+                </xsl:template>
+              </xsl:stylesheet>
+            </InputTransform>
+          </UIPageReference>
+          <UIPageReference ID="Shpurdp.SCOM.UIPageSet.ClustersDiscoveryTemplate.Reference3"
+                           PageID="Shpurdp.SCOM.UIPage.ClustersDiscoveryTemplate.WatcherNodes" Usage="CreationAndUpdate">
+            <InputTransform>
+              <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+                <xsl:output method="xml" indent="yes" omit-xml-declaration="yes" />
+                <xsl:template match="/">
+                  <xsl:element name="WatcherNodesList">
+                    <xsl:value-of select="//WatcherNodesList" />
+                  </xsl:element>
+                  <xsl:element name="SeedComputerName">
+                    <xsl:value-of select="//SeedComputerName" />
+                  </xsl:element>
+                  <xsl:element name="TemplateIdString">
+                    <xsl:value-of select="//TemplateIdString" />
+                  </xsl:element>
+                </xsl:template>
+              </xsl:stylesheet>
+            </InputTransform>
+          </UIPageReference>
+          <UIPageReference ID="Shpurdp.SCOM.UIPageSet.ClustersDiscoveryTemplate.Referemce4"
+                           PageID="Shpurdp.SCOM.UIPage.ClustersDiscoveryTemplate.Summary" Usage="CreationOnly" />
+        </UIPageReferences>
+        <OutputTransform>
+          <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+            <xsl:output method="xml" indent="yes" omit-xml-declaration="yes" />
+            <xsl:template match="/">
+              <xsl:element name="Configuration">
+                <xsl:element name="Name">
+                  <xsl:value-of select="/Name" />
+                </xsl:element>
+                <xsl:element name="Description">
+                  <xsl:value-of select="/Description" />
+                </xsl:element>
+                <xsl:element name="ShpurdpUri">
+                  <xsl:value-of select="/ShpurdpUri" />
+                </xsl:element>
+                <xsl:element name="RunAsAccount">
+                  <xsl:value-of select="/RunAsAccount" />
+                </xsl:element>
+                <xsl:element name="WatcherNodesList">
+                  <xsl:value-of select="/WatcherNodesList" />
+                </xsl:element>
+                <xsl:element name="SeedComputerName">
+                  <xsl:value-of select="/SeedComputerName" />
+                </xsl:element>
+                <xsl:element name="TemplateIdString">
+                  <xsl:value-of select="/TemplateIdString" />
+                </xsl:element>
+              </xsl:element>
+            </xsl:template>
+          </xsl:stylesheet>
+        </OutputTransform>
+      </UIPageSet>
+    </UIPageSets>
+  </PresentationTypes>
+
+  <Presentation>
+    <Folders>
+      <Folder ID="Shpurdp.SCOM.TemplateFolder.ClustersDiscovery" Accessibility="Public"
+              ParentFolder="OM!Microsoft.SystemCenter.OperationsManager.Authoring.TemplateParsers.Root" />
+    </Folders>
+
+    <FolderItems>
+      <FolderItem ID="Shpurdp.SCOM.Template.ClustersDiscovery"
+                  ElementID="Shpurdp.SCOM.Template.ClustersDiscovery"
+                  Folder="Shpurdp.SCOM.TemplateFolder.ClustersDiscovery" />
+
+      <FolderItem ID="Shpurdp.SCOM.UIPage.ClustersDiscoveryTemplate.InputParser"
+                  ElementID="Shpurdp.SCOM.UIPage.ClustersDiscoveryTemplate.InputParser"
+                  Folder="Shpurdp.SCOM.TemplateFolder.ClustersDiscovery" />
+    </FolderItems>
+
+    <ImageReferences>
+      <ImageReference ElementID="Shpurdp.SCOM.Template.ClustersDiscovery" ImageID="Shpurdp.SCOM.Resources.Images.Cluster16Icon" />
+      <ImageReference ElementID="Shpurdp.SCOM.Template.ClustersDiscovery" ImageID="Shpurdp.SCOM.Resources.Images.ClusterDiagramIcon" />
+    </ImageReferences>
+
+  </Presentation>
+
+  <LanguagePacks>
+    <LanguagePack ID="ENU" IsDefault="true">
+      <DisplayStrings>
+        <DisplayString ElementID="Shpurdp.SCOM.Template.ClustersDiscovery">
+          <Name>Shpurdp SCOM</Name>
+          <Description>This template allows you to monitor Hadoop Clusters through Shpurdp service.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Shpurdp.SCOM.TemplateFolder.ClustersDiscovery">
+          <Name>Shpurdp SCOM Template</Name>
+        </DisplayString>
+      </DisplayStrings>
+    </LanguagePack>
+  </LanguagePacks>
+
+</ManagementPackFragment>

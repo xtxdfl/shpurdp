@@ -1,0 +1,206 @@
+-- Licensed to the Apache Software Foundation (ASF) under one
+-- or more contributor license agreements.  See the NOTICE file
+-- distributed with this work for additional information
+-- regarding copyright ownership.  The ASF licenses this file
+-- to you under the Apache License, Version 2.0 (the
+-- "License"); you may not use this file except in compliance
+-- with the License.  You may obtain a copy of the License at
+-- 
+--      http://www.apache.org/licenses/LICENSE-2.0
+-- 
+-- Unless required by applicable law or agreed to in writing, software
+-- distributed under the License is distributed on an "AS IS" BASIS,
+-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-- See the License for the specific language governing permissions and
+-- limitations under the License.
+
+
+APACHE-SHPURDP-MIB DEFINITIONS ::= BEGIN
+
+IMPORTS
+    MODULE-IDENTITY, OBJECT-TYPE, NOTIFICATION-TYPE, Integer32, enterprises
+                                                        FROM SNMPv2-SMI
+    MODULE-COMPLIANCE, OBJECT-GROUP, NOTIFICATION-GROUP
+                                                        FROM SNMPv2-CONF
+    TEXTUAL-CONVENTION
+                                                        FROM SNMPv2-TC
+    ;
+
+apacheShpurdp MODULE-IDENTITY
+    LAST-UPDATED "201508310000Z"
+    ORGANIZATION "shpurdp.apache.org"
+    CONTACT-INFO
+        "email: user@shpurdp.apache.org"
+    DESCRIPTION
+        "Apache Shpurdp MIB Module"
+    -- Revisions
+    REVISION "201508310000Z"
+    DESCRIPTION
+        "First Apache Shpurdp MIB"
+    ::= { apache 16 }
+
+apache OBJECT IDENTIFIER ::= { enterprises 18060 }
+apacheShpurdpTraps OBJECT IDENTIFIER ::= { apacheShpurdp 0 }
+apacheShpurdpAlerts OBJECT IDENTIFIER ::= { apacheShpurdp 1 }
+
+AlertStateType ::= TEXTUAL-CONVENTION
+  STATUS current
+  DESCRIPTION
+    "A string indicating the state of the Alert."
+  SYNTAX INTEGER {
+    ok(0),
+    unknown(1),
+    warning(2),
+    critical(3)
+  }
+
+apacheShpurdpAlertTable OBJECT-TYPE 
+  SYNTAX      SEQUENCE OF AlertEntry
+  MAX-ACCESS  not-accessible
+  STATUS      current
+  DESCRIPTION
+    "Table of Apache Shpurdp Alerts"
+  ::= { apacheShpurdpAlerts 1 }
+
+AlertEntry ::= SEQUENCE {
+  alertDefinitionId    Integer32,
+  alertDefinitionName  OCTET STRING,
+  alertDefinitionHash  OCTET STRING,
+  alertName            OCTET STRING,
+  alertText            OCTET STRING,
+  alertState           AlertStateType,
+  alertHost            OCTET STRING,
+  alertService         OCTET STRING,
+  alertComponent       OCTET STRING  
+  }
+  
+apacheShpurdpAlertEntry  OBJECT-TYPE
+  SYNTAX      AlertEntry
+  MAX-ACCESS  not-accessible
+  STATUS      current
+  DESCRIPTION
+    "Each Alert Event"
+  INDEX { alertDefinitionId }
+  ::= { apacheShpurdpAlertTable 1 }
+
+alertDefinitionId         OBJECT-TYPE
+    SYNTAX      Integer32 (-2147483648..2147483647)
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "ID of the Alert"
+    ::= { apacheShpurdpAlertEntry 1 }
+    
+alertDefinitionName         OBJECT-TYPE
+    SYNTAX      OCTET STRING
+    MAX-ACCESS  accessible-for-notify
+    STATUS      current
+    DESCRIPTION
+        "Alert Definition Name"
+    ::= { apacheShpurdpAlertEntry 2 }    
+    
+alertDefinitionHash         OBJECT-TYPE
+    SYNTAX      OCTET STRING
+    MAX-ACCESS  accessible-for-notify
+    STATUS      current
+    DESCRIPTION
+        "Alert Definition Hash"
+    ::= { apacheShpurdpAlertEntry 3 }    
+
+alertName         OBJECT-TYPE
+    SYNTAX      OCTET STRING
+    MAX-ACCESS  accessible-for-notify
+    STATUS      current
+    DESCRIPTION
+        "Name of the Alert"
+    ::= { apacheShpurdpAlertEntry 4 }    
+
+alertText         OBJECT-TYPE
+    SYNTAX      OCTET STRING
+    MAX-ACCESS  accessible-for-notify
+    STATUS      current
+    DESCRIPTION
+        "Text output of the Alert"
+    ::= { apacheShpurdpAlertEntry 5 }
+
+alertState         OBJECT-TYPE
+    SYNTAX      AlertStateType
+    MAX-ACCESS  accessible-for-notify
+    STATUS      current
+    DESCRIPTION
+        "Severity of the Alert"
+    ::= { apacheShpurdpAlertEntry 6 }
+
+alertHost    OBJECT-TYPE
+    SYNTAX      OCTET STRING
+    MAX-ACCESS  accessible-for-notify
+    STATUS      current
+    DESCRIPTION
+        "Affected Host"
+    ::= { apacheShpurdpAlertEntry 7 }
+    
+alertService    OBJECT-TYPE
+    SYNTAX      OCTET STRING
+    MAX-ACCESS  accessible-for-notify
+    STATUS      current
+    DESCRIPTION
+        "Affected Service"
+    ::= { apacheShpurdpAlertEntry 8 }
+    
+alertComponent    OBJECT-TYPE
+    SYNTAX      OCTET STRING
+    MAX-ACCESS  accessible-for-notify
+    STATUS      current
+    DESCRIPTION
+        "Affected Component"
+    ::= { apacheShpurdpAlertEntry 9 }    
+    
+apacheShpurdpAlert  NOTIFICATION-TYPE
+  OBJECTS {
+    alertDefinitionName, alertDefinitionHash,
+    alertName, alertText, alertState, alertHost, alertService,
+    alertComponent
+  }
+  STATUS  current
+  DESCRIPTION
+    "The SNMP trap that is generated as a result of an alert."
+  ::= { apacheShpurdpTraps 1 }    
+
+apacheShpurdpConformance   OBJECT IDENTIFIER ::=
+    { apacheShpurdpAlerts 3 }
+apacheShpurdpCompliances OBJECT IDENTIFIER ::=
+    { apacheShpurdpConformance 1 }
+apacheShpurdpConformanceGroups      OBJECT IDENTIFIER ::=
+    { apacheShpurdpConformance 2 }
+
+apacheShpurdpMIBCompliance MODULE-COMPLIANCE
+    STATUS current
+    DESCRIPTION
+        "Compliance statement for entities which implement this MIB."
+    MODULE
+        MANDATORY-GROUPS {
+            apacheShpurdpAlertGroup,
+            apacheShpurdpAlertObjectGroup
+        }
+    ::= { apacheShpurdpCompliances 2 }
+
+apacheShpurdpAlertGroup NOTIFICATION-GROUP
+    NOTIFICATIONS {
+        apacheShpurdpAlert
+    }
+    STATUS current
+    DESCRIPTION
+        "Notification objects."
+    ::= { apacheShpurdpConformanceGroups 2 }
+
+apacheShpurdpAlertObjectGroup OBJECT-GROUP
+    OBJECTS {
+      alertDefinitionName, alertDefinitionHash,
+      alertName, alertText, alertState, alertHost, alertService,
+      alertComponent
+    }
+    STATUS current
+    DESCRIPTION
+            "Event Objects"
+    ::= { apacheShpurdpConformanceGroups 3 }
+END

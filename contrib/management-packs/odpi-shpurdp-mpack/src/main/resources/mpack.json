@@ -1,0 +1,19 @@
+{
+  "type" : "full-release",
+  "name" : "odpi-shpurdp-mpack",
+  "version": "${project.version}",
+  "hash": "${buildNumber}",
+  "branch": "${scmBranch}",
+  "description" : "ODPi Shpurdp Management Pack",
+  "prerequisites": {
+    "min-shpurdp-version" : "${minShpurdpVersion}",
+    "max-shpurdp-version" : "${maxShpurdpVersion}"
+  },
+  "artifacts": [
+    {
+      "name" : "odpi-stack-definitions",
+      "type" : "stack-definitions",
+      "source_dir": "stacks"
+    }
+  ]
+}

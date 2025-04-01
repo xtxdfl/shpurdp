@@ -1,0 +1,76 @@
+﻿<!--## Licensed to the Apache Software Foundation (ASF) under one
+## or more contributor license agreements.  See the NOTICE file
+## distributed with this work for additional information
+## regarding copyright ownership.  The ASF licenses this file
+## to you under the Apache License, Version 2.0 (the
+## "License"); you may not use this file except in compliance
+## with the License.  You may obtain a copy of the License at
+##
+##     http://www.apache.org/licenses/LICENSE-2.0
+##
+## Unless required by applicable law or agreed to in writing,
+## software distributed under the License is distributed on an
+## "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+## KIND, either express or implied.  See the License for the
+## specific language governing permissions and limitations
+## under the License.-->
+<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <TypeDefinitions>
+    <EntityTypes>
+      <ClassTypes>
+        <ClassType ID="Shpurdp.SCOM.ShpurdpSeed" Accessibility="Public" Base="Shpurdp.SCOM.ShpurdpAccessorRole" Hosted="true" Abstract="false" Singleton="false">
+          <Property ID="TemplateName" Type="string" Key="true" />
+          <Property ID="ShpurdpUri" Type="string" />
+        </ClassType>
+      </ClassTypes>
+
+      <RelationshipTypes>
+        <RelationshipType ID="Shpurdp.SCOM.ShpurdpSeedContainsCluster"
+                          Base="System!System.Containment" Abstract="false" Accessibility="Public">
+          <Source ID="Seed" Type="Shpurdp.SCOM.ShpurdpSeed" />
+          <Target ID="Cluster" Type="Shpurdp.SCOM.Cluster" />
+        </RelationshipType>
+      </RelationshipTypes>
+    </EntityTypes>
+  </TypeDefinitions>
+
+  <!--<Categories>
+    <Category ID="Shpurdp.SCOM.ShpurdpSeed.16x16Image.Category" Target="Shpurdp.SCOM.ShpurdpSeed.16x16Image" Value="System!System.Internal.ManagementPack.Images.u16x16Icon" />
+    <Category ID="Shpurdp.SCOM.ShpurdpSeed.80x80Image.Category" Target="Shpurdp.SCOM.ShpurdpSeed.80x80Image" Value="System!System.Internal.ManagementPack.Images.DiagramIcon" />
+  </Categories>
+
+  <Presentation>
+    <ImageReferences>
+      <ImageReference ElementID="Shpurdp.SCOM.ShpurdpSeed" ImageID="Shpurdp.SCOM.ShpurdpSeed.16x16Image" />
+      <ImageReference ElementID="Shpurdp.SCOM.ShpurdpSeed" ImageID="Shpurdp.SCOM.ShpurdpSeed.80x80Image" />
+    </ImageReferences>
+  </Presentation>-->
+
+  <LanguagePacks>
+    <LanguagePack ID="ENU" IsDefault="true">
+      <DisplayStrings>
+        <DisplayString ElementID="Shpurdp.SCOM.ShpurdpSeed">
+          <Name>Hadoop Shpurdp Service Seed</Name>
+          <Description>This class defines Hadoop Shpurdp Service seed object.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Shpurdp.SCOM.ShpurdpSeed" SubElementID="TemplateName">
+          <Name>Template Name</Name>
+        </DisplayString>
+        <DisplayString ElementID="Shpurdp.SCOM.ShpurdpSeed" SubElementID="ShpurdpUri">
+          <Name>Shpurdp URI</Name>
+        </DisplayString>
+
+        <DisplayString ElementID="Shpurdp.SCOM.ShpurdpSeedContainsCluster">
+          <Name>Hadoop Shpurdp Service Seed Contains Cluster</Name>
+        </DisplayString>
+      </DisplayStrings>
+    </LanguagePack>
+  </LanguagePacks>
+
+  <!--
+  <Resources>
+    <Image ID="Shpurdp.SCOM.ShpurdpSeed.16x16Image" Accessibility="Public" FileName="ShpurdpSeed-16.png" />
+    <Image ID="Shpurdp.SCOM.ShpurdpSeed.80x80Image" Accessibility="Public" FileName="ShpurdpSeed-80.png" />
+  </Resources>
+  -->
+</ManagementPackFragment>
