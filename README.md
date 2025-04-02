@@ -20,7 +20,7 @@ Apache Shpurdp is a tool for provisioning, managing, and monitoring Apache Hadoo
 
 ## Sub-projects
 
-- Shpurdp Metrics ([GitHub](https://github.com/apache/shpurdp-metrics), [GitBox](https://gitbox.apache.org/repos/asf?p=shpurdp-metrics.git))
+- Shpurdp Metrics ([GitHub](https://github.com/xtxdfl/shpurdp-metrics)
 
 
 ## Getting Started
