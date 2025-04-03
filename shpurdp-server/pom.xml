@@ -49,7 +49,7 @@
     <stacksSrcLocation>src/main/resources/stacks/${stack.distribution}</stacksSrcLocation>
     <tarballResourcesFolder>src/main/resources</tarballResourcesFolder>
     <hadoop.version>3.3.4</hadoop.version>
-    <shpurdp.metrics.version>2.7.0.0.0</shpurdp.metrics.version>
+    <shpurdp.metrics.version>3.0.0.0</shpurdp.metrics.version>
     <empty.dir>src/main/package</empty.dir> <!-- any directory in project with not very big amount of files (not to waste-load them) -->
     <el.log>ALL</el.log> <!-- log level for EclipseLink eclipselink-staticweave-maven-plugin -->
     <xlint>none</xlint> <!-- passed to Java compiler -Xlint: flag -->
@@ -1708,7 +1708,7 @@
     <dependency>
       <groupId>org.apache.shpurdp</groupId>
       <artifactId>shpurdp-metrics-common</artifactId>
-      <version>${shpurdp.metrics.version}</version>
+      <version>3.0.0.0</version>
       <exclusions>
         <exclusion>
           <groupId>org.apache.httpcomponents</groupId>
@@ -1733,6 +1733,11 @@
       <groupId>javax.xml.bind</groupId>
       <artifactId>jaxb-api</artifactId>
       <version>2.3.1</version>
+    </dependency>
+    <dependency>
+    <groupId>javax.xml.ws</groupId>
+    <artifactId>jaxws-api</artifactId>
+    <version>2.3.1</version>
     </dependency>
     <dependency>
       <groupId>com.sun.istack</groupId>
@@ -1995,6 +2000,16 @@
           <artifactId>jackson-databind</artifactId>
         </exclusion>
       </exclusions>
+    </dependency>
+    <dependency>
+    <groupId>javax.xml.ws</groupId>
+    <artifactId>jaxws-api</artifactId>
+    <version>2.3.1</version>
+    </dependency>
+    <dependency>
+    <groupId>com.sun.xml.bind</groupId>
+    <artifactId>jaxb-impl</artifactId>
+    <version>2.3.3</version>
     </dependency>
   </dependencies>
 

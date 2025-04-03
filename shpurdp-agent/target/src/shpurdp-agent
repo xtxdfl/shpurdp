@@ -20,7 +20,7 @@
 # /etc/init.d/shpurdp-agent
 set -u # fail on unset variables
 VERSION="3.0.0.0"
-HASH="${buildNumber}"
+HASH="75e6fbf3edfb7e4245f6eed949f413503b51be73"
 _SCRIPT=$0
 
 case "${1:-}" in

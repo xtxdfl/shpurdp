@@ -52,7 +52,6 @@ chmod -R +w $RPM_BUILD_ROOT
 %attr(644,root,root)  "/var/lib/shpurdp-agent/cred/lib/commons-logging-1.1.1.jar"
 %attr(644,root,root)  "/var/lib/shpurdp-agent/cred/lib/htrace-core-3.1.0-incubating.jar"
 %attr(644,root,root)  "/var/lib/shpurdp-agent/cred/lib/hadoop-common-2.7.3.jar"
-%attr(644,root,root)  "/var/lib/shpurdp-agent/cache/stack-hooks/before-START/files/fast-hdfs-resource.jar"
 %attr(-,root,root) "/var/log/shpurdp-agent"
 %attr(-,root,root) "/var/run/shpurdp-agent"
 
